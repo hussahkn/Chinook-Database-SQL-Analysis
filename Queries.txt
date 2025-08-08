@@ -1,0 +1,40 @@
+/* Query 1 */
+SELECT Album.Title AS Album,
+    COUNT(Track.TrackId) AS NumberOfTracks
+FROM Album 
+JOIN Track ON Album.AlbumId = Track.AlbumId
+GROUP BY 
+    Album.AlbumId
+ORDER BY NumberOfTracks DESC
+LIMIT 5;
+
+
+/* Query 2 */
+SELECT Genre.Name AS Genre,
+    ROUND(SUM(InvoiceLine.UnitPrice * InvoiceLine.Quantity), 2) AS TotalSales
+FROM InvoiceLine
+JOIN Track ON InvoiceLine.TrackId = Track.TrackId
+JOIN Genre ON Track.GenreId = Genre.GenreId
+GROUP BY Genre.Name
+ORDER BY TotalSales DESC
+LIMIT 5;
+
+
+/* Query 3 */
+SELECT Customer.FirstName || ' ' || Customer.LastName AS Customer,
+ROUND(SUM(Invoice.Total), 2) AS TotalSpent
+FROM Customer
+JOIN Invoice ON Customer.CustomerId = Invoice.CustomerId
+GROUP BY Customer.CustomerId
+ORDER BY TotalSpent DESC
+LIMIT 5;
+
+/* Query 4 */
+SELECT Employee.FirstName || ' ' || Employee.LastName AS SupportRep,
+COUNT(Customer.CustomerId) AS TotalCustomers
+FROM Employee
+JOIN Customer ON Employee.EmployeeId = Customer.SupportRepId
+GROUP BY Employee.EmployeeId
+ORDER BY TotalCustomers DESC
+LIMIT 5;
+
